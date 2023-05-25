@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Admin | Aero Booking</title>
+
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link rel="stylesheet" href="assets/font-awesome/css/all.min.css">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
+  <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
+  <link href="assets/DataTables/datatables.min.css" rel="stylesheet">
+  <link href="assets/css/jquery.datetimepicker.min.css" rel="stylesheet">
+  <link href="assets/css/select2.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="assets/css/jquery-te-1.4.0.css">
+
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/DataTables/datatables.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/venobox/venobox.min.js"></script>
+  <script src="assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+  <script src="assets/vendor/counterup/counterup.min.js"></script>
+  <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+  <script type="text/javascript" src="assets/js/select2.min.js"></script>
+  <script type="text/javascript" src="assets/js/jquery.datetimepicker.full.min.js"></script>
+  <script type="text/javascript" src="assets/font-awesome/js/all.min.js"></script>
+  <script type="text/javascript" src="assets/js/jquery-te-1.4.0.min.js" charset="utf-8"></script>
+</head>
+<style>
+  body {
+    background: #80808045;
+  }
+
+  .modal-dialog.large {
+    width: 80% !important;
+    max-width: unset;
+  }
+
+  .modal-dialog.mid-large {
+    width: 50% !important;
+    max-width: unset;
+  }
+</style>
+
+<body>
+  <style>
+    .logo {
+      margin: auto;
+      font-size: 20px;
+      background: white;
+      padding: 7px 11px;
+      border-radius: 50% 50%;
+      color: #000000b3;
+    }
+  </style>
+
+  <nav class="navbar navbar-light fixed-top bg-primary" style="padding:0;">
+    <div class="container-fluid mt-2 mb-2">
+      <div class="col-lg-12">
+        <div class="col-md-1 float-left" style="display: flex;">
+          <div class="logo">
+            <span class="fa fa-plane-departure"></span>
+          </div>
+        </div>
+        <div class="col-md-4 float-left text-white">
+          <large><b>Aero Booking</b></large>
+        </div>
+        <div class="col-md-2 float-right text-white">
+          <a href="ajax.php?action=logout" class="text-white" id="admin-logout">Administrator <i class="fa fa-power-off"></i></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <style>
+  </style>
+  <nav id="sidebar" class='mx-lt-5 bg-dark'>
+
+    <div class="sidebar-list">
+
+      <a href="home.html" class="nav-item nav-home"><span class='icon-field'><i class="fa fa-home"></i></span> Home</a>
+      <a href="bookings.html" class="nav-item nav-booked"><span class='icon-field'><i class="fa fa-book"></i></span> Booked Flights</a>
+      <a href="flight.html"class="nav-item nav-flights"><span class='icon-field'><i class="fa fa-plane-departure"></i></span> Available Flights</a>
+			<a href="airports.html" class="nav-item nav-airport"><span class='icon-field'><i class="fa fa-map-marked-alt"></i></span> Airports</a>
+      <a href="users.html" class="nav-item nav-users"><span class='icon-field'><i class="fa fa-users"></i></span> Registered Users</a>
+      <a href="settings.html" class="nav-item nav-site_settings"><span class='icon-field'><i class="fa fa-cog"></i></span> Site Settings</a>
+    </div>
+
+  </nav>
+  <script>
+    $('.nav-booked').addClass('active')
+  </script>
+  <div class="toast" id="alert_toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-body text-white">
+    </div>
+  </div>
+  <main id="view-panel">
+
+    <div class="container-fluid">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header">
+            <large class="card-title">
+              <b>Booked Flights List</b>
+            </large>
+
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered" id="flight-list">
+              <colgroup>
+                <col width="10%">
+                <col width="30%">
+                <col width="50%">
+                <col width="10%">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th class="text-center">#</th>
+                  <th class="text-center">Information</th>
+                  <th class="text-center">Flight Info</th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+
+                  <td>1</td>
+                  <td>
+                    <p>Name :<b>John Smith</b></p>
+                    <p><small>Contact # :<b>(808) 877-6736</small></b></p>
+                    <p><small>Address :<b>310 Kaahumanu Ave 
+                  Kahului, Hawaii(HI), 96732</small></b></p>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <img src="../assets/img/1600999200_43cada0008538e3c1a1f4675e5a7aabe.jpeg" alt="" class="btn-rounder badge-pill">
+                      </div>
+                      <div class="col-sm-6">
+                        <p>Airline :<b>Cebu Pacific</b></p>
+                        <p><small>Plane :<b>CEB10023</small></b></p>
+                        <p><small>Airline :<b>Cebu Pacific</small></b></p>
+                        <p><small>Location :<b>NAIA, Metro Manila - Mactan-Cebu Airport, Cebu</small></b></p>
+                        <p><small>Departure :<b>Jan 13,2023 01:00 AM</small></b></p>
+                        <p><small>Arrival :<b>Jan 13,2023 04:00 AM</small></b></p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    <button class="btn btn-outline-primary btn-sm edit_booked" type="button" data-id="3"><i class="fa fa-edit"></i></button>
+                    <button class="btn btn-outline-danger btn-sm delete_booked" type="button" data-id="3"><i class="fa fa-trash"></i></button>
+                  </td>
+
+                </tr>
+
+                <tr>
+
+                  <td>2</td>
+                  <td>
+                    <p>Name :<b>James Smith</b></p>
+                    <p><small>Contact # :<b>(765) 457-1591 </small></b></p>
+                    <p><small>Address :<b>734 Willowridge Dr 
+                  Kokomo, Indiana(IN), 46901</small></b></p>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <img src="../assets/img/1600999080_kisspng-flight-indonesia-airasia-airasia-japan-airline-tic-asia-5abad146966736.8321896415221927106161.jpg" alt="" class="btn-rounder badge-pill">
+                      </div>
+                      <div class="col-sm-6">
+                        <p>Airline :<b>AirAsia</b></p>
+                        <p><small>Plane :<b>CEB-1101</small></b></p>
+                        <p><small>Airline :<b>AirAsia</small></b></p>
+                        <p><small>Location :<b>NAIA, Metro Manila - Mactan-Cebu Airport, Cebu</small></b></p>
+                        <p><small>Departure :<b>Jan 13,2023 01:00 AM</small></b></p>
+                        <p><small>Arrival :<b>Jan 13,2023 04:00 AM</small></b></p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    <button class="btn btn-outline-primary btn-sm edit_booked" type="button" data-id="2"><i class="fa fa-edit"></i></button>
+                    <button class="btn btn-outline-danger btn-sm delete_booked" type="button" data-id="2"><i class="fa fa-trash"></i></button>
+                  </td>
+
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <style>
+      td p {
+        margin: unset;
+      }
+
+      td img {
+        width: 8vw;
+        height: 12vh;
+      }
+
+      td {
+        vertical-align: middle !important;
+      }
+    </style>
+    <script>
+      $('#flight-list').dataTable()
+      $('#new_booked').click(function() {
+        uni_modal("New Flight", "manage_booked.php", 'mid-large')
+      })
+      $('.edit_booked').click(function() {
+        uni_modal("Edit Information", "manage_booked.php?id=" + $(this).attr('data-id'), 'mid-large')
+      })
+      $('.delete_booked').click(function() {
+        _conf("Are you sure to delete this data?", "delete_booked", [$(this).attr('data-id')])
+      })
+
+      function delete_booked($id) {
+        start_load()
+        $.ajax({
+          url: 'ajax.php?action=delete_flight',
+          method: 'POST',
+          data: {
+            id: $id
+          },
+          success: function(resp) {
+            if (resp == 1) {
+              alert_toast("Flight successfully deleted", 'success')
+              setTimeout(function() {
+                location.reload()
+              }, 1500)
+
+            }
+          }
+        })
+      }
+
+      // Logout functionality
+      $('#admin-logout').click(function(e) {
+        e.preventDefault();
+        $.ajax({
+          url: $(this).attr('href'),
+          method: 'GET',
+          success: function(resp) {
+            // Handle successful logout response or perform desired action
+            // For example, redirect to login page
+            window.location.href = 'login.html';
+          },
+          error: function() {
+            alert('Successfully logged out');
+          }
+        });
+      });
+    </script>
+
+  </main>
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+  <div class="modal fade" id="confirm_modal" role='dialog'>
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmation</h5>
+        </div>
+        <div class="modal-body">
+          <div id="delete_content"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id='confirm' onclick="">Continue</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="uni_modal" role='dialog'>
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"></h5>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id='submit' onclick="$('#uni_modal form').submit()">Save</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  window.start_load = function() {
+    $('body').prepend('<di id="preloader2"></di>')
+  }
+  window.end_load = function() {
+    $('#preloader2').fadeOut('fast', function() {
+      $(this).remove();
+    })
+  }
+
+  window.uni_modal = function($title = '', $url = '', $size = "") {
+    start_load()
+    $.ajax({
+      url: $url,
+      error: err => {
+        console.log()
+        alert("An error occured")
+      },
+      success: function(resp) {
+        if (resp) {
+          $('#uni_modal .modal-title').html($title)
+          $('#uni_modal .modal-body').html(resp)
+          if ($size != '') {
+            $('#uni_modal .modal-dialog').addClass($size)
+          } else {
+            $('#uni_modal .modal-dialog').removeAttr("class").addClass("modal-dialog modal-md")
+          }
+          $('#uni_modal').modal('show')
+          end_load()
+        }
+      }
+    })
+  }
+  window._conf = function($msg = '', $func = '', $params = []) {
+    $('#confirm_modal #confirm').attr('onclick', $func + "(" + $params.join(',') + ")")
+    $('#confirm_modal .modal-body').html($msg)
+    $('#confirm_modal').modal('show')
+  }
+  window.alert_toast = function($msg = 'TEST', $bg = 'success') {
+    $('#alert_toast').removeClass('bg-success')
+    $('#alert_toast').removeClass('bg-danger')
+    $('#alert_toast').removeClass('bg-info')
+    $('#alert_toast').removeClass('bg-warning')
+
+    if ($bg == 'success')
+      $('#alert_toast').addClass('bg-success')
+    if ($bg == 'danger')
+      $('#alert_toast').addClass('bg-danger')
+    if ($bg == 'info')
+      $('#alert_toast').addClass('bg-info')
+    if ($bg == 'warning')
+      $('#alert_toast').addClass('bg-warning')
+    $('#alert_toast .toast-body').html($msg)
+    $('#alert_toast').toast({
+      delay: 3000
+    }).toast('show');
+  }
+  $(document).ready(function() {
+    $('#preloader').fadeOut('fast', function() {
+      $(this).remove();
+    })
+  })
+  $('.datetimepicker').datetimepicker({
+    format: 'Y/m/d H:i',
+    startDate: '+3d'
+  })
+  $('.select2').select2({
+    placeholder: "Please select here",
+    width: "100%"
+  })
+</script>
+</html>
